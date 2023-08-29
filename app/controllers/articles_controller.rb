@@ -13,8 +13,26 @@ class ArticlesController < ApplicationController
     #render plain: params[:article]
     @article = Article.new(params.require(:article).permit(:title, :description))
     #render plain: @article.inspect
-    @article.save
 
+
+
+    respond_to do |format|
+      if @article.save
+        #flash[:notice] = "Article was successfully created!"
+        format.html { redirect_to article_url(@article), notice: "Article was successfully created ;)" }
+        format.html {redirect_to @article }
+        #format.json { render :show, status: :created, location: @article }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        #format.json { render json: @article.errors, status: :unprocessable_entity }
+      end
+    end
+
+    # if @article.save
+    #   redirect_to @article
+    # else 
+    #   render :new
+    # end
     # redirect to the page with created article and set the id, that is just created
     # use route Prefix  | article 
     # Verb              | GET
@@ -23,12 +41,11 @@ class ArticlesController < ApplicationController
     # redirect_to -> prefix_path(@article)
     #redirect_to article_path(@article)
     #Or shorter 
-    
-    redirect_to @article
 
   end
 
   def new
+    @article = Article.new
 
   end
 
