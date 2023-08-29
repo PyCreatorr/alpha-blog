@@ -14,8 +14,6 @@ class ArticlesController < ApplicationController
     @article = Article.new(params.require(:article).permit(:title, :description))
     #render plain: @article.inspect
 
-
-
     respond_to do |format|
       if @article.save
         #flash[:notice] = "Article was successfully created!"
@@ -46,6 +44,31 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+
+  end
+
+  def edit
+    #byebug
+    #binding.break
+    @article = Article.find(params[:id])
+  end
+
+  def update
+    #binding.break
+    @article = Article.find(params[:id])
+
+    respond_to do |format|
+
+      if @article.update(params.require(:article).permit(:title, :description))
+        #flash[:notice] = "Article was successfully created!"
+        format.html { redirect_to article_url(@article), notice: "Article was updated successfully!" }
+        #format.html {redirect_to @article }
+        #format.json { render :show, status: :created, location: @article }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        #format.json { render json: @article.errors, status: :unprocessable_entity }
+      end
+    end
 
   end
 
