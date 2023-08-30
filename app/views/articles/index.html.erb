@@ -5,7 +5,7 @@
     <tr>
       <td>Title</td>
       <td>Description</td>
-      <td>Actions</td>
+      <td colspan="3">Actions</td>
     </tr>
   </thead>
   <tbody>
@@ -20,4 +20,5 @@
     <% end %>    
   </tbody>
 </table>
-<p><%= link_to 'Create', new_article_path %></p>
+<p><%= link_to 'Create new Article', new_article_path %> | 
+<%= link_to 'Home page', root_path %> 
