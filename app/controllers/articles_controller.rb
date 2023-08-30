@@ -1,7 +1,8 @@
 class ArticlesController < ApplicationController
 
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
   def show
-    @article = Article.find(params[:id])
+    #@article = Article.find(params[:id])
   end
   def index
     @articles = Article.all
@@ -9,9 +10,10 @@ class ArticlesController < ApplicationController
 
   #@article = Article.new(params)
   # visualise the created article as the plain text
+
   def create
     #render plain: params[:article]
-    @article = Article.new(params.require(:article).permit(:title, :description))
+    @article = Article.new(article_params)
     #render plain: @article.inspect
 
     respond_to do |format|
@@ -50,16 +52,16 @@ class ArticlesController < ApplicationController
   def edit
     #byebug
     #binding.break
-    @article = Article.find(params[:id])
+    #@article = Article.find(params[:id])
   end
 
   def update
     #binding.break
-    @article = Article.find(params[:id])
+    #@article = Article.find(params[:id])
 
     respond_to do |format|
 
-      if @article.update(params.require(:article).permit(:title, :description))
+      if @article.update(article_params)
         #flash[:notice] = "Article was successfully created!"
         format.html { redirect_to article_url(@article), notice: "Article was updated successfully!" }
         #format.html {redirect_to @article }
@@ -73,7 +75,7 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
+    #@article = Article.find(params[:id])
 
     respond_to do |format|
       if @article.destroy
@@ -84,6 +86,17 @@ class ArticlesController < ApplicationController
     end
 
 
+  end
+
+
+  private
+  
+  def set_article
+    @article = Article.find(params[:id])
+  end
+
+  def article_params
+    params.require(:article).permit(:title, :description)
   end
 
 end
