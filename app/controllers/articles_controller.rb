@@ -72,4 +72,18 @@ class ArticlesController < ApplicationController
 
   end
 
+  def destroy
+    @article = Article.find(params[:id])
+
+    respond_to do |format|
+      if @article.destroy
+        # articles_path -> Route 1  Prefix : articles + _path
+        format.html { redirect_to articles_path, notice: "Article was updated successfully!" }
+      end
+
+    end
+
+
+  end
+
 end
