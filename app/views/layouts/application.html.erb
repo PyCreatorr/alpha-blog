@@ -8,9 +8,17 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "application", async: true %>
+
   </head>
 
-  <body>
+  <body class="d-flex flex-column h-100">
+  
+    
+<%= render 'layouts/navigation'%>
+    
     <%= yield %>
+
+<%= render 'layouts/footer'%>
   </body>
 </html>
