@@ -15,7 +15,11 @@ class ArticlesController < ApplicationController
     #render plain: params[:article]
     @article = Article.new(article_params)
     #render plain: @article.inspect
+    #@article.user_id = User.first
 
+    #add user to the article
+    @article.user = User.first
+    
     respond_to do |format|
       if @article.save
         #flash[:notice] = "Article was successfully created!"
