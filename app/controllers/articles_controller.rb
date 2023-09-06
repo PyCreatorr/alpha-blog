@@ -23,6 +23,8 @@ class ArticlesController < ApplicationController
     respond_to do |format|
       if @article.save
         #flash[:notice] = "Article was successfully created!"
+        #binding.break
+
         format.html { redirect_to article_url(@article), notice: "Article was successfully created ;)" }
         format.html {redirect_to @article }
         #format.json { render :show, status: :created, location: @article }

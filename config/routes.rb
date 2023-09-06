@@ -4,6 +4,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  
+  # get signup sends to the users controller and action new
+  get 'signup', to: 'users#new' 
+
+  resources :users, except: [:new]
   resources :articles#, only: [:show, :index, :new, :create, :edit, :update]
 
   root 'pages#home'

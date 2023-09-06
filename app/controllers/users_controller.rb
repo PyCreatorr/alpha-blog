@@ -1,0 +1,65 @@
+class UsersController < ApplicationController
+    def new
+        @user = User.new
+    end
+
+    def edit
+      #binding.break
+      @user = User.find(params[:id])
+    end
+
+    def show
+      @user = User.find(params[:id])
+    end
+
+  # This action uses POST parameters. They are most likely coming
+  # from an HTML form that the user has submitted. The URL for
+  # this RESTful request will be "/users", and the data will be
+  # sent as part of the request body.
+
+  def create
+    # binding.break
+    # @user = User.create(params[:user])
+    @user = User.create(user_params)
+
+    respond_to do |format|
+        if @user.save
+            format.html { redirect_to articles_path, notice: "Wellcome to Alpha Blog #{@user.username}, you have signed up!"}
+            format.html {redirect_to @article }
+            # redirect_to articles_path, notice: "Wellcome to Alpha Blog #{@user.username}, you have signed up!"
+        else
+            # This line overrides the default rendering behavior, which
+            # would have been to render the "create" view.
+            format.html { render :new, status: :unprocessable_entity }
+            #render "new"
+        end
+    end
+  end
+
+  def update
+    #binding.break
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      if @user.update(user_params)
+        #binding.break
+          format.html { redirect_to user_path, notice: "User: #{@user.username} was updated successfully!"}
+          #format.html {redirect_to @article }
+          # redirect_to articles_path, notice: "Wellcome to Alpha Blog #{@user.username}, you have signed up!"
+      else
+          # This line overrides the default rendering behavior, which
+          # would have been to render the "create" view.
+          format.html { render :edit, status: :unprocessable_entity }
+          #render "new"
+      end
+  end
+
+  end
+
+
+
+  private
+    def user_params
+      params.require(:user).permit(:username, :email, :password)
+    end
+end

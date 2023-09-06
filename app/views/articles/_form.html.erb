@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row d-flex justify-content-center p-6">
     <div class="card shadow-sm m-4 p-4" >
-      <%= render 'shared/errors'%>
+      <%= render 'shared/errors', obj: @article %>
 
         <%= form_with model: @article, local: true do |f| %>
           <div class="mb-3">

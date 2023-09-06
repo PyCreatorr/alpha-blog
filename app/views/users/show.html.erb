@@ -1,0 +1,35 @@
+<div id = "page-content">
+
+    <div class="container">
+
+        <h1 class = "text-center m-4" >Showing users details</h1>
+            <div class="row d-flex justify-content-center p-3 " >
+
+                <div class="card shadow-sm rounded-3" style="padding:0px">
+
+                <div class="card-header">
+                    by <%=  @user.username if @user %>
+                </div>
+                <div class="card-body">
+
+                    <p>Username:  <%= @user.username %></p>
+                    <p>Email:  <%= @user.email %></p>
+
+                    <div class="text-center">
+                        <%= link_to 'Edit', edit_user_path(@user) , method: :edit, class: 'btn btn-dark btn-sm'  %>
+                        <%= link_to 'Delete', user_path(@user) , data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: 'btn btn-danger btn-sm' %>
+                        <%= link_to 'Return to articles listing', articles_path, class: 'btn btn-secondary btn-sm' %>
+                    </div>
+                    
+                </div>
+                <div class="card-footer text-body-secondary">
+                    <small>Created <%= time_ago_in_words(@user.created_at) %> ago,
+                    edited <%= time_ago_in_words(@user.updated_at) %> ago</small>
+                </div>
+                </div>
+
+            </div>
+
+    </div>
+</div>
+
