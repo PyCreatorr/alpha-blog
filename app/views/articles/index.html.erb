@@ -2,31 +2,6 @@
 <div id = "page-content">
   <h1 class = "text-center m-4" >Listing all articles</h1>
 
-  <div class="container" >
-
-    <% @articles.each do |article| %>
-      <div class="row d-flex justify-content-center p-3 " >
-
-          <div class="card text-center shadow-sm rounded-3" style="padding:0px">
-            <div class="card-header">
-              by <%= article.user.username if article.user %>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title"><%= link_to article.title, article_path(article), class: "primary text-underline-hover" %></h5>
-              <p class="card-text"><%= truncate(article.description, length:100) %></p>
-              <%= link_to 'Show', article_path(article), class: 'btn btn-primary btn-sm' %>
-              <%= link_to 'Edit', edit_article_path(article) , method: :edit, class: 'btn btn-dark btn-sm'  %>
-              <%= link_to 'Delete', article_path(article) , data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: 'btn btn-danger btn-sm' %>
-            </div>
-            <div class="card-footer text-body-secondary">
-              <small>Created <%= time_ago_in_words(article.created_at) %> ago,
-              edited <%= time_ago_in_words(article.updated_at) %> ago</small>
-            </div>
-          </div>
-
-      </div>
-    <% end %>
-
-  </div>
+<%= render 'article' %>
 </div>
 

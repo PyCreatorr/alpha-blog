@@ -10,6 +10,9 @@ class UsersController < ApplicationController
 
     def show
       @user = User.find(params[:id])
+      
+      # Define @articles from @users, to use the _articles.html.erb partition:
+      @articles = @user.articles
     end
 
   # This action uses POST parameters. They are most likely coming
