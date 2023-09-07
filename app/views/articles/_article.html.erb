@@ -5,7 +5,9 @@
 
           <div class="card text-center shadow-sm rounded-3" style="padding:0px">
             <div class="card-header">
-              by <%= article.user.username if article.user %>
+            <% if article.user %>
+              by <%= link_to article.user.username, user_path(article.user) %>
+            <% end %>
             </div>
             <div class="card-body">
               <h5 class="card-title"><%= link_to article.title, article_path(article), class: "primary text-underline-hover" %></h5>

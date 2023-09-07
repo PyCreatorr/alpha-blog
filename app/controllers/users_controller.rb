@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
     
     def index
-      @users = User.all
+      #@users = User.all
+      @users = User.paginate(page: params[:page], per_page: 3)
     end
   
     def new
@@ -17,7 +18,8 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       
       # Define @articles from @users, to use the _articles.html.erb partition:
-      @articles = @user.articles
+      #@articles = @user.articles
+      @articles = @user.articles.paginate(page: params[:page], per_page: 3)
     end
 
   # This action uses POST parameters. They are most likely coming

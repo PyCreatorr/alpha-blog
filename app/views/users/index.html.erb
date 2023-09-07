@@ -2,6 +2,7 @@
     <h1 class = "text-center m-4" >Alpha Bloggers</h1>
 
   <div class="container" >
+    <%= will_paginate @users, class: "flickr_pagination" %>
 
     <% @users.each do |user| %>
       <div class="row d-flex justify-content-center p-3 " >
@@ -30,6 +31,7 @@
 
       </div>
     <% end %>
+    <%= will_paginate @users, class: "flickr_pagination" %>
 
   </div>
 
