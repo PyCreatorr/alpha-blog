@@ -19,7 +19,8 @@ class ArticlesController < ApplicationController
     #@article.user_id = User.first
 
     #add user to the article
-    @article.user = User.first
+    # @article.user = User.first
+    @article.user = current_user
     
     respond_to do |format|
       if @article.save
