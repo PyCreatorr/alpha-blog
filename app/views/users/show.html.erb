@@ -6,7 +6,11 @@
         <div class="text-center">
             <%= gravatar_for @user, size: 200 %>
         </div>
-        <div class="text-center m-4"><%= link_to "Edit users profile", edit_user_path(@user), class: "btn btn-dark btn-sm" %></div>
+        <div class="text-center m-4">
+            <% if logged_in? && current_user == @user %>
+                <%= link_to "Edit users profile", edit_user_path(@user), class: "btn btn-dark btn-sm" %>
+            <% end %>
+        </div>
             <h1 class = "text-center m-4">Articles</h1>
             <%= will_paginate @articles, class: "flickr_pagination" %>
 

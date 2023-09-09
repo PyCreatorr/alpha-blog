@@ -19,8 +19,10 @@
               
               <!--<p class="card-text"><%= truncate(user.email, length:100) %></p> -->
               <p class="card-text"><%= pluralize(user.articles.count, 'Article') %></p>
-              <%= link_to 'View profile', user_path(user), class: 'btn btn-primary btn-sm' %>
-              <%= link_to 'Edit profile', edit_user_path(user) , method: :edit, class: 'btn btn-dark btn-sm'  %>
+                <%= link_to 'View profile', user_path(user), class: 'btn btn-primary btn-sm' %>
+              <% if logged_in? && current_user == user %>  
+                <%= link_to 'Edit profile', edit_user_path(user) , method: :edit, class: 'btn btn-dark btn-sm'  %>
+              <% end %>
               <!-- <%= link_to 'Delete', user_path(user) , data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: 'btn btn-danger btn-sm' %>
               -->
             </div>
