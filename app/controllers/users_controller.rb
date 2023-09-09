@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-    before_action :set_user, only: [:edit, :show, :update]
-    before_action :require_user, only: [:edit, :update]
-    before_action :require_same_user, only: [:edit, :update]
+    before_action :set_user, only: [:edit, :show, :update, :destroy]
+    before_action :require_user, only: [:edit, :update, :destroy]
+    before_action :require_same_user, only: [:edit, :update, :destroy]
 
     def index
       #@users = User.all
@@ -54,20 +54,27 @@ class UsersController < ApplicationController
     #binding.break
     #@user = User.find(params[:id])
 
-    respond_to do |format|
-      if @user.update(user_params)
-        #binding.break
-          format.html { redirect_to user_path, notice: "User: #{@user.username} was updated successfully!"}
-          #format.html {redirect_to @article }
-          # redirect_to articles_path, notice: "Wellcome to Alpha Blog #{@user.username}, you have signed up!"
-      else
-          # This line overrides the default rendering behavior, which
-          # would have been to render the "create" view.
-          format.html { render :edit, status: :unprocessable_entity }
-          #render "new"
-      end
+      respond_to do |format|
+        if @user.update(user_params)
+          #binding.break
+            format.html { redirect_to user_path, notice: "User: #{@user.username} was updated successfully!"}
+            #format.html {redirect_to @article }
+            # redirect_to articles_path, notice: "Wellcome to Alpha Blog #{@user.username}, you have signed up!"
+        else
+            # This line overrides the default rendering behavior, which
+            # would have been to render the "create" view.
+            format.html { render :edit, status: :unprocessable_entity }
+            #render "new"
+        end
+    end
+
   end
 
+  def destroy
+    @user.destroy
+    session[:user_id] = nil
+    flash[:notice] = "Account and all associated articles successfully deleted"
+    redirect_to users_path
   end
 
 
