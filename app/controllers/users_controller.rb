@@ -38,7 +38,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
           session[:user_id] = @user.id
-          format.html { redirect_to articles_path, notice: "Wellcome to Alpha Blog #{@user.username}, you have signed up!"}
+          flash[:success] = "Wellcome to Alpha Blog #{@user.username}, you have signed up!"
+          format.html { redirect_to articles_path}
           format.html {redirect_to @article }
           # redirect_to articles_path, notice: "Wellcome to Alpha Blog #{@user.username}, you have signed up!"
           else
@@ -57,7 +58,8 @@ class UsersController < ApplicationController
       respond_to do |format|
         if @user.update(user_params)
           #binding.break
-            format.html { redirect_to user_path, notice: "User: #{@user.username} was updated successfully!"}
+            flash[:success] = "User: #{@user.username} was updated successfully!"
+            format.html { redirect_to user_path}
             #format.html {redirect_to @article }
             # redirect_to articles_path, notice: "Wellcome to Alpha Blog #{@user.username}, you have signed up!"
         else
@@ -72,8 +74,8 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    session[:user_id] = nil
-    flash[:notice] = "Account and all associated articles successfully deleted"
+    session[:user_id] = nil if current_user == @user # admin can delete himself also
+    flash[:success] = "Account and all associated articles successfully deleted"
     redirect_to users_path
   end
 
@@ -89,8 +91,8 @@ class UsersController < ApplicationController
     end
 
     def require_same_user
-      if current_user != @user
-        flash[:notice] = "You can only edit your own account"
+      if current_user != @user && !current_user.admin?
+        flash[:danger] = "You can only edit or delete your own account"
         redirect_to @user
       end
     end

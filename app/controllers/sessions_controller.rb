@@ -8,11 +8,11 @@ class SessionsController < ApplicationController
         respond_to do |format|
             if user && user.authenticate(params[:session][:password])
                     session[:user_id] = user.id
-                    flash[:notice] = "Wellcome to Alpha Blog #{user.username}, you have loged in!"
+                    flash[:success] = "Wellcome to Alpha Blog #{user.username}, you have loged in!"
                      format.html{ redirect_to user_url(user)}
                 else 
                     # binding.break
-                    flash.now[:notice] = "Wrong kredentials"
+                    flash.now[:danger] = "Wrong kredentials"
                     format.html{ render :new , status: :unprocessable_entity}
             end
       
@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
 
     def destroy
         session[:user_id] = nil
-        flash[:notice] = "Logged out"
+        flash[:success] = "Logged out"
         redirect_to root_path
     end
 end

@@ -8,7 +8,7 @@
         </div>
         <div class="text-center m-4">
             <% if logged_in? && current_user == @user %>
-                <%= link_to "Edit users profile", edit_user_path(@user), class: "btn btn-dark btn-sm" %>
+                <%= link_to "Edit my profile", edit_user_path(@user), class: "btn btn-dark btn-sm" %>
             <% end %>
         </div>
             <h1 class = "text-center m-4">Articles</h1>

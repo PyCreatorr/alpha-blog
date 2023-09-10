@@ -28,8 +28,8 @@ class ArticlesController < ApplicationController
       if @article.save
         #flash[:notice] = "Article was successfully created!"
         #binding.break
-
-        format.html { redirect_to article_url(@article), notice: "Article was successfully created ;)" }
+        flash[:success] = "Article was successfully created ;)"
+        format.html { redirect_to article_url(@article)}
         format.html {redirect_to @article }
         #format.json { render :show, status: :created, location: @article }
       else
@@ -73,7 +73,8 @@ class ArticlesController < ApplicationController
 
       if @article.update(article_params)
         #flash[:notice] = "Article was successfully created!"
-        format.html { redirect_to article_url(@article), notice: "Article was updated successfully!" }
+        flash[:success] = "Article was updated successfully!"
+        format.html { redirect_to article_url(@article)}
         #format.html {redirect_to @article }
         #format.json { render :show, status: :created, location: @article }
       else
@@ -90,7 +91,8 @@ class ArticlesController < ApplicationController
     respond_to do |format|
       if @article.destroy
         # articles_path -> Route 1  Prefix : articles + _path
-        format.html { redirect_to articles_path, notice: "Article was updated successfully!" }
+        flash[:success] = "Article was updated successfully!"
+        format.html { redirect_to articles_path }
       end
 
     end
@@ -110,9 +112,10 @@ class ArticlesController < ApplicationController
   end
 
   def require_same_user
-    if current_user != @article.user
-      flash[:notice] = "You can only edit or delete your own articles"
+    if (current_user != @article.user) && !current_user.admin?
+      flash[:danger] = "You can only edit or delete your own articles"
       redirect_to @article
+    
     end
   end
 
