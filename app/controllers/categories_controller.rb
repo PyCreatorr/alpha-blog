@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+    # require_admin comes from application_controller
     before_action :require_admin, except: [:index, :show] 
 
     def create
@@ -31,13 +32,13 @@ class CategoriesController < ApplicationController
     def category_params
         params.require(:category).permit(:name)
     end
-
+   
     def require_admin
         # If user is not logged in, this function just exit
         if !(logged_in? && current_user.admin?)
             flash[:danger] = "Only admins can perform this action"
             redirect_to categories_path
         end
-    end    
+    end 
 
 end
