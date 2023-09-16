@@ -16,7 +16,13 @@ class ArticlesController < ApplicationController
 
   def create
     #render plain: params[:article]
-    @article = Article.new(article_params)
+    #@article = Article.new(params[:article], category_ids: )
+
+    params_full = {title: params[:article][:title], description:params[:article][:description] , category_ids: params[:categories][:category_ids]}
+    #binding.break
+
+    @article = Article.new(params_full)
+    #@article = Article.new(title: "some title", description: "some descriptionnnn", user: User.last, category_ids: [1,2])
     #render plain: @article.inspect
     #@article.user_id = User.first
 
@@ -56,6 +62,7 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+    #@categories = Category.all
 
   end
 
@@ -107,8 +114,9 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
+  # whitelisting fields for our front-end/ui. Add array of category ids.
   def article_params
-    params.require(:article).permit(:title, :description)
+    params.require(:article).permit(:title, :description, category_ids: [])
   end
 
   def require_same_user

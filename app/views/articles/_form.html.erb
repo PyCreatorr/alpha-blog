@@ -12,6 +12,13 @@
             <%= f.label :description, class: "form-label" %>
             <%= f.text_area :description, rows: 10, class: "form-control", placeholder: "Description" %>
           </div>
+          <div class="mb-3">          
+            <%= f.label :category, class: "form-label" %>
+            <%= collection_select(:categories, :category_ids, Category.all, :id, :name, {prompt: "Please Select a Sector"}, 
+            {multiple: true, size: 4, class: "form-select"}) %>
+
+          </div>
+
           <div class="mb-0 text-center d-grid gap-2">
             <%= f.submit class: "btn btn-primary"  %>
           </div>
