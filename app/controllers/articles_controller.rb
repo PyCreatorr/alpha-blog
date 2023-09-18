@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
     #render plain: params[:article]
     #@article = Article.new(params[:article], category_ids: )
 
-    params_full = {title: params[:article][:title], description:params[:article][:description] , category_ids: params[:categories][:category_ids]}
+    params_full = {title: params[:article][:title], description: params[:article][:description] , category_ids: params[:categories][:category_ids]}
     #binding.break
 
     @article = Article.new(params_full)
@@ -78,7 +78,9 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
 
-      if @article.update(article_params)
+      params_full = {title: params[:article][:title], description: params[:article][:description] , category_ids: params[:categories][:category_ids]}
+
+      if @article.update(params_full)
         #flash[:notice] = "Article was successfully created!"
         flash[:success] = "Article was updated successfully!"
         format.html { redirect_to article_url(@article)}

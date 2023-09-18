@@ -14,8 +14,12 @@
           </div>
           <div class="mb-3">          
             <%= f.label :category, class: "form-label" %>
-            <%= collection_select(:categories, :category_ids, Category.all, :id, :name, {prompt: "Please Select a Sector"}, 
-            {multiple: true, size: 4, class: "form-select"}) %>
+            <!--<%= select(:categories, :category_id, Category.all.collect { |c| [ c.name, c.id ] }, { include_blank: "None", multiple: true, size: 4, class: "form-select" })%> -->
+            <!-- <%= collection_select(:categories, :category_ids, Category.all, :id, :name, {prompt: "Please Select a Sector"}, 
+            {multiple: true, size: 4, class: "form-select"}) %> -->
+
+          <%= collection_select(:categories, :category_ids, Category.all, :id, :name, {prompt: "Please Select a Sector", :selected => @article.categories.map(&:id)}, 
+            {multiple: true, size: 4, class: "form-select"}) %>           
 
           </div>
 
@@ -24,7 +28,14 @@
           </div>
         <% end %>
       </div>
-
+      <!-- <% hash = { bacon: "protein", apple: "fruit" } %> -->
+        <!-- <%=  hash.map { |k,v| [k, v.to_sym] }.to_h %> -->
+         <!--<%=   @article.categories.map(&:id) %> -->
+          <!--<% if @article.categories.any? %>
+            <% @article.categories.each do |c| %>
+              <%= c.name %>
+            <% end%>
+          <% end %> -->
     <p><%= link_to 'Cancel and return back to the articles listing', articles_path %></p>
   </div>
 </div>
