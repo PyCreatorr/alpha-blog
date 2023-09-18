@@ -1,1 +1,16 @@
+<div id = "page-content">
 <h1 class = "text-center m-4" >Category: <%= @category.name %></h1>
+
+        <div class="text-center m-4">
+            <% if logged_in? && current_user.admin? %>
+                <%= link_to "Edit category name", edit_category_path(@category), class: "btn btn-dark btn-sm" %>
+            <% end %>
+        </div>
+            <h1 class = "text-center m-4">Articles</h1>
+            <%= will_paginate @articles, class: "flickr_pagination" %>
+
+            <%= render 'articles/article' %>
+            <!-- <%= render 'articles/article', obj: @category_articles %> -->
+            
+            <%= will_paginate @articles, class: "flickr_pagination" %>
+</div>
