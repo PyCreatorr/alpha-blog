@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
     # require_admin comes from application_controller
     before_action :require_admin, except: [:index, :show] 
+    before_action :set_category, only: [:update, :show, :edit]
 
     def create
         @category = Category.new(category_params)
@@ -25,13 +26,37 @@ class CategoriesController < ApplicationController
 
     def show
         #binding.break
-        @category = Category.find(params[:id])
+       # @category = Category.find(params[:id])
         @articles = @category.articles.paginate(page: params[:page], per_page: 3)
+    end
+
+    def edit
+        #@category = Category.find(params[:id])
+
+    end
+
+    def update
+        #@category = Category.find(params[:id])
+        #binding.break
+
+        if @category.update(category_params)
+            flash[:success] = "Congratulations, the categori is updated!"
+            redirect_to category_path(@category)
+        else 
+            #flash[:danger] = "Something went wrong!"
+            render 'edit', status: :unprocessable_entity
+        end
+
+
     end
 
     private
     def category_params
         params.require(:category).permit(:name)
+    end
+
+    def set_category
+        @category = Category.find(params[:id])
     end
    
     def require_admin
