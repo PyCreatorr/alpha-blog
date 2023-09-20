@@ -40,7 +40,7 @@ class UsersController < ApplicationController
           session[:user_id] = @user.id
           flash[:success] = "Wellcome to Alpha Blog #{@user.username}, you have signed up!"
           format.html { redirect_to articles_path}
-          format.html {redirect_to @article }
+          #format.html {redirect_to @article }
           # redirect_to articles_path, notice: "Wellcome to Alpha Blog #{@user.username}, you have signed up!"
           else
             # This line overrides the default rendering behavior, which

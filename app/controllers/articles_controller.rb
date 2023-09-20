@@ -36,7 +36,7 @@ class ArticlesController < ApplicationController
         #binding.break
         flash[:success] = "Article was successfully created ;)"
         format.html { redirect_to article_url(@article)}
-        format.html {redirect_to @article }
+        #format.html {redirect_to @article }
         #format.json { render :show, status: :created, location: @article }
       else
         format.html { render :new, status: :unprocessable_entity }
